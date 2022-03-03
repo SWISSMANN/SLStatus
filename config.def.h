@@ -1,12 +1,3 @@
-/* #    ___________      __.___  _________ _________   _____      _____    _______    _______     # */
-/* #   /   _____/  \    /  \   |/   _____//   _____/  /     \    /  _  \   \      \   \      \    # */
-/* #   \_____  \\   \/\/   /   |\_____  \ \_____  \  /  \ /  \  /  /_\  \  /   |   \  /   |   \   # */
-/* #   /        \\        /|   |/        \/        \/    Y    \/    |    \/    |    \/    |    \  # */
-/* #  /_______  / \__/\  / |___/_______  /_______  /\____|__  /\____|__  /\____|__  /\____|__  /  # */
-/* #          \/       \/              \/        \/         \/         \/         \/         \/   # */
-/* #                                                                                              # */
-/* #  ##########################################################################################  # */
-
 /* See LICENSE file for copyright and license details. */
 
 /* interval between updates (in ms) */
@@ -54,6 +45,7 @@ static const char unknown_str[] = "n/a";
  * ram_total           total memory size in GB         NULL
  * ram_used            used memory in GB               NULL
  * run_command         custom shell command            command (echo foo)
+ * separator           string to echo                  NULL
  * swap_free           free swap in GB                 NULL
  * swap_perc           swap usage in percent           NULL
  * swap_total          total swap size in GB           NULL
@@ -67,17 +59,17 @@ static const char unknown_str[] = "n/a";
  * uptime              system uptime                   NULL
  * username            username of current user        NULL
  * vol_perc            OSS/ALSA volume in percent      mixer file (/dev/mixer)
+ *                                                     NULL on OpenBSD
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 /* function format          argument */
 static const struct arg args[] = {
-{ netspeed_rx, "  %sB/s ", "enp39s0"  },   
-{ netspeed_tx, "  %sB/s ", "enp39s0"  },	
-{ cpu_perc, "  %s%% ", NULL    },    
-{ ram_perc, "  %s%% ", NULL    },
-{ run_command, " %4s ", "amixer sget Master | awk -F \"[][]\" '/%/ { print $2 }'| head -n1" },
-{ datetime, " [%s] ",           "%d/%m/%Y  %H:%M" },
-
+	{ netspeed_rx, "  %sB/s ", "enp39s0"  },   
+	{ netspeed_tx, "  %sB/s ", "enp39s0"  },	
+	{ cpu_perc, "  %s%% ", NULL    },    
+	{ ram_perc, "  %s%% ", NULL    },
+	{ run_command, " %4s ", "amixer sget Master | awk -F \"[][]\" '/%/ { print $2 }'| head -n1" },
+	{ datetime, "  %s  ",           " %d/%m/%Y - %H:%M " },
 
 };
